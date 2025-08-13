@@ -62,14 +62,12 @@ Testcase.belongsTo(SubModule, {
   foreignKey: 'sub_module_id'
 });
 
-// // Severity → Testcase
+// Severity → Testcase
 Severity.hasMany(Testcase, {foreignKey: 'severity_id'});
 Testcase.belongsTo(Severity, {foreignKey: 'severity_id'});
 
 // One DefectType has many Testcases
 DefectType.hasMany(Testcase, {foreignKey: 'type_id',});
-
-// // Each Testcase belongs to one DefectType
 Testcase.belongsTo(DefectType, {foreignKey: 'type_id',});
 
 // ReleaseTestCase → Owner (User)
@@ -84,13 +82,23 @@ ReleaseTestCase.belongsTo(Release, { foreignKey: 'release_id' });
 Testcase.hasMany(ReleaseTestCase, { foreignKey: 'test_case_id' });
 ReleaseTestCase.belongsTo(Testcase, { foreignKey: 'test_case_id' });
 
-// One group_privilege has many privileges
-Group_Privileges.hasMany(Privilege, {foreignKey: 'group_privileges_id'});
-Privilege.belongsTo(Group_Privileges, {foreignKey: 'group_privileges_id'});
+// privilage can have many group_privilege, one group_privilege can have one privilage
+Privilege.hasMany(Group_Privileges,{
+  foreignKey: 'privilege_id',
+});
+Group_Privileges.belongsTo(Privilege,{
+  foreignKey: 'privilege_id',
+});
 
-// One group_privilege has many roles
-Group_Privileges.hasMany(Role, {foreignKey: 'group_privileges_id',});
-Role.belongsTo(Group_Privileges, {foreignKey: 'group_privileges_id',});
+
+// role can have many group_privilege, one group_privilege can have one role
+Role.hasMany(Group_Privileges,{
+  foreignKey: 'role_id',
+});
+Group_Privileges.belongsTo(Role,{
+  foreignKey: 'role_id',
+});
+
 
 // Many-to-one: Many project_user_privileges belong to one user
 ProjectUserPrivileges.belongsTo(User, { foreignKey: 'user_id'});
@@ -163,8 +171,6 @@ UserPrivileges.belongsTo(User, { foreignKey: 'user_id' });
 
 // One User can have many Benches
 User.hasMany(Bench, {foreignKey: 'user_id',});
-
-// Each Bench belongs to a User
 Bench.belongsTo(User, {foreignKey: 'user_id',});
 
 

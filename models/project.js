@@ -7,12 +7,32 @@ const Project = sequelize.define('project', {
     primaryKey: true,
     autoIncrement: true
   },
+  client_name: {
+    type: DataTypes.STRING(20)
+  },
+  country: {
+    type: DataTypes.STRING(20)
+  },
+  phone_no: {
+    type: DataTypes.INTEGER(10)
+  },
+  email: {
+    type: DataTypes.STRING(30)
+  },
+  state: {
+    type: DataTypes.STRING(1000)
+  },
+  project_id: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true
+    },
   project_name: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
   description: {
-    type: DataTypes.STRING(1000)
+    type: DataTypes.STRING(100)
   },
   
   start_date: {
