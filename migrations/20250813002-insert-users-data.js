@@ -27,7 +27,7 @@ module.exports = {
         join_date: new Date('2024-02-01'),
         user_gender: 'MALE',
         user_status: 'ACTIVE',
-        designation_id: 2 // Developer
+        designation_id: 1 // Developer
       },
       {
         user_id: 'dev002',
@@ -39,7 +39,7 @@ module.exports = {
         join_date: new Date('2024-02-15'),
         user_gender: 'FEMALE',
         user_status: 'ACTIVE',
-        designation_id: 3 // Senior Developer
+        designation_id: 2 // Senior Developer
       },
       {
         user_id: 'test001',
@@ -75,7 +75,7 @@ module.exports = {
         join_date: new Date('2024-01-15'),
         user_gender: 'MALE',
         user_status: 'ACTIVE',
-        designation_id: 6 // Project Manager
+        designation_id: 2 // Project Manager
       },
       {
         user_id: 'lead001',
@@ -87,7 +87,7 @@ module.exports = {
         join_date: new Date('2024-01-20'),
         user_gender: 'FEMALE',
         user_status: 'ACTIVE',
-        designation_id: 7 // Lead Developer
+        designation_id: 3 // Lead Developer
       },
       {
         user_id: 'intern001',
@@ -99,7 +99,7 @@ module.exports = {
         join_date: new Date('2024-06-01'),
         user_gender: 'MALE',
         user_status: 'ACTIVE',
-        designation_id: 8 // Intern
+        designation_id: 2 // Intern
       }
     ], {});
   },

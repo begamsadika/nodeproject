@@ -33,6 +33,7 @@ const Comments= require('./models/comments');
 // Import routes
 const designationRoutes = require('./routes/designationRoutes');
 const roleRoutes = require('./routes/roleRoutes');
+const projectRoutes = require('./routes/projectRoutes');
 
 const app = express();
 const port = 3000;
@@ -56,6 +57,7 @@ sequelize.authenticate()
 // Use API routes
 app.use('/api/designations', designationRoutes);
 app.use('/api/roles', roleRoutes);
+app.use('/api/projects', projectRoutes);
 
 // Default route
 app.get('/', (req, res) => {
