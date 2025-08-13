@@ -97,6 +97,14 @@ module.exports = {
       { sub_module_id: 'SUB011', sub_module_name: 'PayPal Integration', modules_id: 4 },
       { sub_module_id: 'SUB012', sub_module_name: 'Payment Verification', modules_id: 4 }
     ], {});
+    // Insert allocate_module data
+    await queryInterface.bulkInsert('allocate_module', [
+  { id: 1, modules_id: 1, project_id: 1, user_id: 1, sub_module_id: 1 },
+  { id: 2, modules_id: 2, project_id: 1, user_id: 1, sub_module_id: 4 },
+  { id: 3, modules_id: 3, project_id: 1, user_id: 1, sub_module_id: 7 },
+  { id: 4, modules_id: 4, project_id: 1, user_id: 1, sub_module_id: 10 },
+  { id: 5, modules_id: 4, project_id: 1, user_id: 1, sub_module_id: 12 }
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
