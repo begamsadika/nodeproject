@@ -34,6 +34,9 @@ const Comments= require('./models/comments');
 const designationRoutes = require('./routes/designationRoutes');
 const roleRoutes = require('./routes/roleRoutes');
 const projectRoutes = require('./routes/projectRoutes');
+const defect_typeRoutes = require('./routes/defect_typeRoutes');
+const defectRoutes = require('./routes/defectRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
 const port = 3000;
@@ -58,10 +61,13 @@ sequelize.authenticate()
 app.use('/api/designations', designationRoutes);
 app.use('/api/roles', roleRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/defect-types', defect_typeRoutes);
+app.use('/api/defects', defectRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Default route
 app.get('/', (req, res) => {
-  res.send('Hello world');
+  res.send('Database connected successfully');
 });
 
 // Start server
