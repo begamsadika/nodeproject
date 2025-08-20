@@ -8,5 +8,7 @@ router.get('/', (req, res) => {
 	res.send('Dashboard API is working');
 });
 router.get('/defect-density/:projectId', dashboardController.defectDensity);
+router.get('/defect-severity-index/:projectId', dashboardController.defectSeverityIndex);
+router.get('/defect-to-remark-ratio/:projectId', dashboardController.defectToRemarkRatio);
 
 module.exports = router;
