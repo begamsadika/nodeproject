@@ -191,16 +191,16 @@ ReleaseTestCase.hasMany(Defect, { foreignKey: 'release_test_case_id' });
 Defect.belongsTo(ReleaseTestCase, { foreignKey: 'release_test_case_id' });
 
 // Defect → Severity
-Severity.hasMany(Defect, { foreignKey: 'severity_id' });
-Defect.belongsTo(Severity, { foreignKey: 'severity_id' });
+Severity.hasMany(Defect, { foreignKey: 'severity_ic', as: 'Defects' });
+Defect.belongsTo(Severity, { foreignKey: 'severity_ic', as: 'Severity' });
 
 // Defect → DefectType
 DefectType.hasMany(Defect, { foreignKey: 'type_id' });
 Defect.belongsTo(DefectType, { foreignKey: 'type_id' });
 
 // Defect → DefectStatus
-DefectStatus.hasMany(Defect, { foreignKey: 'defect_status_id' });
-Defect.belongsTo(DefectStatus, { foreignKey: 'defect_status_id' });
+DefectStatus.hasMany(Defect, { foreignKey: 'defect_sta', as: 'Defects' });
+Defect.belongsTo(DefectStatus, { foreignKey: 'defect_sta', as: 'DefectStatus' });
 
 // Defect → Priority
 Priority.hasMany(Defect, { foreignKey: 'priority_id' });

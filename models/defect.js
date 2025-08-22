@@ -46,6 +46,62 @@ const Defect = sequelize.define('defect',{
     allowNull: false,
     unique: true
   },
+  project_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true, // Assuming it can be null based on your migration, adjust if needed
+    references: {
+      model: 'project',
+      key: 'id'
+    }
+  },
+  modules_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'modules',
+      key: 'id'
+    }
+  },
+  sub_module_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'sub_module',
+      key: 'id'
+    }
+  },
+  release_test_case_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'release_test_case',
+      key: 'id'
+    }
+  },
+  severity_ic: {
+    type: DataTypes.BIGINT,
+    allowNull: true
+  },
+  type_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'defect_type',
+      key: 'id'
+    }
+  },
+  defect_sta: {
+    type: DataTypes.BIGINT,
+    allowNull: true
+  },
+  priority_id: {
+    type: DataTypes.BIGINT,
+    allowNull: true,
+    references: {
+      model: 'priority',
+      key: 'id'
+    }
+  }
   
   }, {
   tableName: 'defect',
