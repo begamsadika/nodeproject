@@ -78,7 +78,7 @@ const Defect = sequelize.define('defect',{
       key: 'id'
     }
   },
-  severity_ic: {
+  severity_id: {
     type: DataTypes.BIGINT,
     allowNull: true
   },
@@ -90,7 +90,7 @@ const Defect = sequelize.define('defect',{
       key: 'id'
     }
   },
-  defect_sta: {
+  defect_status_id: {
     type: DataTypes.BIGINT,
     allowNull: true
   },

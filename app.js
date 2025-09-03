@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');   // ✅ CORS import
 const sequelize = require('./config/database');
-const association= require('./models/association');
+const association = require('./models/association');
+
 // Import models
 const Designation = require('./models/designation');
 const Role = require('./models/role');
@@ -21,14 +23,14 @@ const Group_Privileges = require('./models/group_privileges');
 const ProjectUserPrivileges = require('./models/project_user_privileges');
 const ProjectAllocation = require('./models/project_allocation');
 const ProjectAllocationHistory = require('./models/project_allocation_history');
-const Allocate_module= require('./models/allocate_module');
-const Email_user= require('./models/email_user');
-const Smtp_config= require('./models/smtp_config');
-const UserPrivileges= require('./models/user_privileges');
+const Allocate_module = require('./models/allocate_module');
+const Email_user = require('./models/email_user');
+const Smtp_config = require('./models/smtp_config');
+const UserPrivileges = require('./models/user_privileges');
 const Bench = require('./models/bench');
 const Defect = require('./models/defect');
-const Defect_history= require('./models/defect_history');
-const Comments= require('./models/comments');
+const Defect_history = require('./models/defect_history');
+const Comments = require('./models/comments');
 
 // Import routes
 const designationRoutes = require('./routes/designationRoutes');
@@ -39,7 +41,14 @@ const defectRoutes = require('./routes/defectRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
-const port = 3000;
+const port = 3000;   // ✅ Changed port (frontend usually runs on 3000)
+
+// ✅ Enable CORS for frontend (React on http://localhost:3000)
+app.use(cors({
+  origin: "http://192.168.1.15:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -74,61 +83,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const express = require('express');
-// const sequelize = require('./config/database');
-// const Designation = require('./models/designation');
-// const designationRoutes = require('./routes/designationRoutes');
-
-// const app = express();
-// const port = 3000;
-
-// app.use(express.json());
-
-// // ✅ DB Connection + Sync
-// sequelize.authenticate()
-//   .then(() => {
-//     console.log('Database connected successfully.');
-//     return sequelize.sync(); // 🔄 Automatically creates table if not exist
-//   })
-//   .then(() => {
-//     console.log('All models synced.');
-//   })
-//   .catch((err) => {
-//     console.error('DB error:', err);
-//   });
-
-// // ✅ Routes
-// app.use('/api/designations', designationRoutes);
-
-// // ✅ Default route
-// app.get('/', (req, res) => {
-//   res.send('Hello world');
-// });
-
-// // ✅ Start server
-// app.listen(port, () => {
-//   console.log(`Server running at http://localhost:${port}`);
-// });
