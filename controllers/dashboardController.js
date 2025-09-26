@@ -1,3 +1,28 @@
+const { getDefectReopenDetails } = require('../services/dashboardService');
+
+// GET /api/dashboard/defect-reopen-details/:projectId/:reopenCount
+async function defectReopenDetailsController(req, res) {
+	try {
+		const projectId = req.params.projectId;
+		const reopenCount = parseInt(req.params.reopenCount, 10);
+		const result = await getDefectReopenDetails(projectId, reopenCount);
+		res.json(result);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+}
+const { getDefectReopenCounts } = require('../services/dashboardService');
+
+// GET /api/dashboard/defect-reopen-counts/:projectId
+async function defectReopenCountsController(req, res) {
+	try {
+		const projectId = req.params.projectId;
+		const result = await getDefectReopenCounts(projectId);
+		res.json(result);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+}
 const {
 	filterProjectsSummary,
 	getHighRiskProjects,
@@ -138,6 +163,8 @@ module.exports = {
 	mediumRiskProjectsController,
 	lowRiskProjectsController,
 	allProjectsCardSummaryController
+	,defectReopenCountsController
+	,defectReopenDetailsController
 };
 
 // GET /api/dashboard/defect-severity-index/:projectId

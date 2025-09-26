@@ -1,4 +1,40 @@
 /**
+ * Get defect status reopen counts for 2,3,4,5 times (valid defects only)
+ * Returns: { 2: count, 3: count, 4: count, 5: count }
+ */
+async function getDefectReopenCounts(projectId) {
+    // Get all defects for the project
+    const defects = await Defect.findAll({
+        where: { project_id: projectId }
+    });
+
+    // Define reject and duplicate defect_status_id values (from your DB: 4=Reject, 6=Duplicate)
+    const REJECT_STATUS_ID = 4;
+    const DUPLICATE_STATUS_ID = 6;
+
+    // Filter valid defects (not 'Reject' or 'Duplicate' by defect_status_id)
+    const validDefects = defects.filter(defect => {
+        return defect.defect_status_id !== REJECT_STATUS_ID && defect.defect_status_id !== DUPLICATE_STATUS_ID;
+    });
+
+    // Count defects by re_open_count (for 2,3,4,5 times)
+    const counts = { 2: 0, 3: 0, 4: 0, 5: 0 };
+    validDefects.forEach(defect => {
+        const reopenCount = defect.re_open_count;
+        if ([2,3,4,5].includes(reopenCount)) {
+            counts[reopenCount]++;
+        }
+    });
+
+    return {
+        status: "success",
+        message: "Defect reopen counts fetched successfully",
+        statusCode: 2000,
+        projectId,
+        reopenCounts: counts
+    };
+}
+/**
  * Get only High Risk projects (colorCode: Red, status: High Risk)
  */
 async function getHighRiskProjects() {
@@ -11,6 +47,7 @@ async function getHighRiskProjects() {
             }
         }
     }
+
     return {
         status: "success",
         message: "High Risk projects",
@@ -540,6 +577,51 @@ async function getDefectDistributionByType(projectId) {
         }
     };
 }
+/**
+ * Get details for defects reopened a specific number of times
+ * Returns: [{ defect_id, re_open_count, assigned_to, assigned_by, release_test_case_id, percentage }]
+ */
+async function getDefectReopenDetails(projectId, reopenCount) {
+    // Get all defects for the project
+    const defects = await Defect.findAll({
+        where: { project_id: projectId }
+    });
+
+    // Define reject and duplicate defect_status_id values (from your DB: 4=Reject, 6=Duplicate)
+    const REJECT_STATUS_ID = 4;
+    const DUPLICATE_STATUS_ID = 6;
+
+    // Filter valid defects (not 'Reject' or 'Duplicate' by defect_status_id)
+    const validDefects = defects.filter(defect => {
+        return defect.defect_status_id !== REJECT_STATUS_ID && defect.defect_status_id !== DUPLICATE_STATUS_ID;
+    });
+
+    // Filter defects for the specific reopen count
+    const filtered = validDefects.filter(defect => defect.re_open_count === reopenCount);
+    const totalValid = validDefects.length;
+    const percentage = totalValid > 0 ? parseFloat(((filtered.length / totalValid) * 100).toFixed(2)) : 0.0;
+
+    // Prepare details
+    const details = filtered.map(defect => ({
+        defect_id: defect.defect_id,
+        re_open_count: defect.re_open_count,
+        assigned_to: defect.assigned_to,
+        assigned_by: defect.assigned_by,
+        release_test_case_id: defect.release_test_case_id,
+        percentage
+    }));
+
+    return {
+        status: "success",
+        message: `Defects reopened ${reopenCount} times details fetched successfully`,
+        statusCode: 2000,
+        projectId,
+        reopenCount,
+        total: details.length,
+        percentage,
+        details
+    };
+}
 
 module.exports = {
     getDefectDensity,
@@ -554,9 +636,9 @@ module.exports = {
     getMediumRiskProjects,
     getLowRiskProjects,
     getAllProjectsCardSummary
+    ,getDefectReopenCounts,
+    getDefectReopenDetails
 };
-
-
 
 
 const Project = require('../models/project');

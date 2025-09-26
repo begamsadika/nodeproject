@@ -1,9 +1,10 @@
-
 const express = require('express');
 
 const router = express.Router();
 
 const dashboardController = require('../controllers/dashboardController');
+router.get('/defect-reopen-details/:projectId/:reopenCount', dashboardController.defectReopenDetailsController);
+router.get('/defect-reopen-counts/:projectId', dashboardController.defectReopenCountsController);
 
 router.get('/', (req, res) => {
 	res.send('Dashboard API is working');
@@ -18,12 +19,12 @@ router.get('/defect-severity-summary/:projectId', dashboardController.defectSeve
 router.get('/project-card-summary', dashboardController.projectCardColorSummary);
 router.get('/project-card-summary/:projectId', dashboardController.projectCardColorSummary);
 
-// Project card summary by risk endpoints
-router.get('/project-card-summary/high-risk', dashboardController.highRiskProjectsController);
-router.get('/project-card-summary/medium-risk', dashboardController.mediumRiskProjectsController);
-router.get('/project-card-summary/low-risk', dashboardController.lowRiskProjectsController);
-router.get('/project-card-summary/all', dashboardController.allProjectsCardSummaryController);
+// // Project card summary by risk endpoints
+// router.get('/project-card-summary/high-risk', dashboardController.highRiskProjectsController);
+// router.get('/project-card-summary/medium-risk', dashboardController.mediumRiskProjectsController);
+// router.get('/project-card-summary/low-risk', dashboardController.lowRiskProjectsController);
+// router.get('/project-card-summary/all', dashboardController.allProjectsCardSummaryController);
 
-router.get('/filter-projects-summary', dashboardController.filterProjectsSummaryController);
+// router.get('/filter-projects-summary', dashboardController.filterProjectsSummaryController);
 
 module.exports = router;
